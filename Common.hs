@@ -1,14 +1,23 @@
-module Common 
-( readCsv
-, splitOn
-) where
+module Common
+  ( readCsv,
+    splitOn,
+    toTuple,
+    toTriple,
+  )
+where
 
-import qualified Data.Text as T
-import Data.List (groupBy, transpose, sortBy)
+import Data.List (groupBy, sortBy, transpose)
 import Data.Ord (comparing)
+import qualified Data.Text as T
 
 splitOn :: String -> String -> [String]
 splitOn on txt = map T.unpack $ T.splitOn (T.pack on) (T.pack txt)
 
 readCsv :: (Read a) => String -> [a]
 readCsv s = map read $ splitOn "," s
+
+toTuple :: [a] -> (a, a)
+toTuple [x, y] = (x, y)
+
+toTriple :: [a] -> (a, a, a)
+toTriple [x, y, z] = (x, y, z)
